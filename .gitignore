@@ -4,3 +4,4 @@ coq/dist
 *.aux
 node_modules
 .vscode
+dist

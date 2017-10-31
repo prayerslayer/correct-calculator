@@ -7,8 +7,8 @@
     "compile-coq": "coqtop -compile coq/src/math.v && rm coq/dist/math.mli",
     "compile-ocaml": "bsc -c coq/dist/math.ml",
     "copy-compiled-module": "cp coq/dist/*.js lib",
-    "build": "npm run compile",
-    "watch": "npm run build && webpack-dev-server",
+    "dist": "npm run compile && NODE_ENV=production webpack",
+    "watch": "npm run compile && webpack-dev-server",
     "compile": "npm run compile-coq && npm run compile-ocaml && npm run copy-compiled-module",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +17,7 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-minify-webpack-plugin": "^0.2.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
@@ -28,6 +29,7 @@
   },
   "dependencies": {
     "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react-dom": "^16.0.0",
+    "styled-components": "^2.2.3"
   }
 }

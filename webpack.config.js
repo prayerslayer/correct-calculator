@@ -1,6 +1,23 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+const MinifyPlugin = require("babel-minify-webpack-plugin");
+
+const PROD = process.env.NODE_ENV === 'production'
+
+const defaultPlugins = [
+  new HtmlWebpackPlugin(),
+  new webpack.NamedModulesPlugin(),
+  new webpack.HotModuleReplacementPlugin(),
+  new webpack.EnvironmentPlugin({
+    NODE_ENV: 'dev'
+  })
+]
+
+const prodPlugins = PROD ?  [
+  new MinifyPlugin()
+] : []
+
 module.exports = {
   context: __dirname,
 
@@ -14,11 +31,7 @@ module.exports = {
     filename: '[name]-[hash].js'
   },
 
-  plugins: [
-    new HtmlWebpackPlugin(),
-    new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
-  ],
+  plugins: [...defaultPlugins, ...prodPlugins],
 
   devServer: {
     contentBase: path.resolve(__dirname, './dist/'),
