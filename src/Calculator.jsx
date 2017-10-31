@@ -4,7 +4,8 @@ import styled from 'styled-components';
 
 const fontFamily =
   '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
-const Button = styled.button`
+
+  const Button = styled.button`
   font-family: ${fontFamily};
   font-weight: 300;
   font-size: 24px;
@@ -12,6 +13,8 @@ const Button = styled.button`
   min-width: 70px;
   background: #eee;
   border: none;
+  margin: 0;
+  padding: 0;
 
   &:hover,
   &:focus {
@@ -115,20 +118,21 @@ export default class Calculator extends React.Component {
 
   clear = () => this.setState(INITIAL_STATE);
 
+  hasPendingOperation = (state) => state.pendingOperation !== null
+
   updateValue = val =>
     this.setState(state => ({
-      value: state.value * 10 + val
+      value: this.hasPendingOperation(state) ? val : state.value * 10 + val
     }));
 
   prepareOperation = op =>
     this.setState(state => ({
       pendingOperation: op.bind(
         null,
-        state.pendingOperation !== null
+        this.hasPendingOperation(state)
           ? state.pendingOperation(state.value)
           : state.value
       ),
-      value: 0
     }));
 
   calculate = () =>
