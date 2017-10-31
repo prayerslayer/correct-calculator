@@ -6,7 +6,11 @@ const MinifyPlugin = require("babel-minify-webpack-plugin");
 const PROD = process.env.NODE_ENV === 'production'
 
 const defaultPlugins = [
-  new HtmlWebpackPlugin(),
+  new HtmlWebpackPlugin({
+    title: 'Correct Calculator',
+    template: 'src/index.html',
+    inject: 'head'
+  }),
   new webpack.NamedModulesPlugin(),
   new webpack.HotModuleReplacementPlugin(),
   new webpack.EnvironmentPlugin({
