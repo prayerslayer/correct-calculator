@@ -2,7 +2,7 @@
   "name": "calc",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "compile-coq": "coqtop -compile coq/src/math.v && rm coq/dist/math.mli",
     "compile-ocaml": "bsc -c coq/dist/math.ml",
@@ -13,8 +13,8 @@
     "compile": "npm run compile-coq && npm run compile-ocaml && npm run copy-compiled-module",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Nikolaus Piccolotto",
+  "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",

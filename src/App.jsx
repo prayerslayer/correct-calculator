@@ -9,6 +9,11 @@ const Paragraph = styled.p`
     Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 `;
 
+const Danger = Paragraph.extend`
+  background: red;
+  color: white;
+`;
+
 const Spacer = styled.div`margin-bottom: 100px;`;
 
 const Headline = styled.h1`
@@ -17,16 +22,33 @@ const Headline = styled.h1`
     Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 `;
 
-export default function App() {
-  return (
-    <main>
-      <Headline>Correct Calculator</Headline>
-      <Paragraph>
-        Works on natural numbers. Correctness of functions verified by Coq,
-        transpiled to Javascript via OCaml (Bucklescript). <a href="https://github.com/prayerslayer/correct-calculator">Github</a>
-      </Paragraph>
-      <Spacer />
-      <Calculator />
-    </main>
-  );
+export default class App extends React.Component {
+  constructor(p) {
+    super(p);
+    this.state = {
+      error: null
+    };
+  }
+  componentDidCatch(e) {
+    this.setState({ error: e });
+  }
+  render() {
+    if (this.state.error !== null) {
+      return <Danger>Error: {this.state.error.message}</Danger>
+    }
+    return (
+      <main>
+        <Headline>Correct Calculator</Headline>
+        <Paragraph>
+          Works on natural numbers. Correctness of functions verified by Coq,
+          transpiled to Javascript via OCaml (Bucklescript).{' '}
+          <a href="https://github.com/prayerslayer/correct-calculator">
+            Github
+          </a>
+        </Paragraph>
+        <Spacer />
+        <Calculator />
+      </main>
+    );
+  }
 }

@@ -122,7 +122,7 @@ export default class Calculator extends React.Component {
 
   updateValue = val =>
     this.setState(state => ({
-      value: state.value * 10 + val
+      value: add(mult(state.value, 10), val)
     }));
 
   prepareOperation = op =>
