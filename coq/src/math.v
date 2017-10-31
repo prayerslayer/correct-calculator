@@ -1,4 +1,4 @@
-(* ADDITION *)
+Section Addition.
 
 Fixpoint add (a b : nat) : nat :=
   match a with
@@ -75,9 +75,10 @@ reflexivity.
 
 Qed.
 
+End Addition.
 
 
-(* MULTIPLICATION *)
+Section Multiplication.
 
 Fixpoint mult (a b : nat) : nat :=
   match a with
@@ -146,8 +147,10 @@ induction y.
   reflexivity.
 Qed.
 
+End Multiplication.
 
-(* SUBTRACTION *)
+
+Section Subtraction.
 
 Fixpoint sub (a b : nat) : nat :=
   match a with
@@ -179,64 +182,43 @@ rewrite -> IHx.
 reflexivity.
 Qed.
 
-(* DIVISION *)
+End Subtraction.
 
-Fixpoint equal (a b : nat) : bool :=
-  match a, b with
-  | O, O => true
-  | (S n), (S m) => (equal n m)
-  | _, _ => false
+Section Division.
+
+Fixpoint div_remainder (a b i j: nat) : (prod nat nat) :=
+   match a with
+   | O => (i, j)
+   | (S n) => match j with
+              | O => (div_remainder n b (S i) b)
+              | (S m) => (div_remainder n b i m)
+              end
+   end.
+
+Definition div (a b : nat) :=
+  match b with
+  | O => O
+  | (S n) => fst (div_remainder a n 0 n)
   end.
 
-Lemma equal_reflexivity (x : nat) : (equal x x) = true.
-Proof.
-induction x.
+Definition mod (a b : nat) :=
+  match b with
+  | O => O
+  | (S n) => (sub n (snd (div_remainder a n 0 n)))
+  end.
 
-simpl.
-reflexivity.
-
-simpl.
-rewrite -> IHx.
-reflexivity.
-Qed.
-
-Proposition equal_correct_true (x y : nat) : x = y -> (equal x y) = true.
+Lemma div_of_inverse_element: forall (x : nat), (div x 0) = 0.
 Proof.
 intros.
-induction x, y.
-
-
 simpl.
-trivial.
-
-
-simpl.
-discriminate.
-
-simpl.
-discriminate.
-
-
-rewrite -> H.
-simpl.
-apply equal_reflexivity.
+reflexivity.
 Qed.
 
-
-(* TODO this swallows the remainder which could be used for modulo *)
-Fixpoint div (a b : nat) : nat :=
-  let fix _div (x y i j : nat) : nat :=
-     match x with
-     | O => i
-     | (S n) => match y with
-                | O => x
-                | _ => if (equal j y) then (_div n b (S i) 1) else (_div n b i (S j))
-                end
-     end
-   in _div a b 0 1.
+(* TODO division by neutral element 1 *)
+End Division.
 
 
 Extraction Language Ocaml.
 Extract Inductive nat => int [ "0" "Pervasives.succ" ]
  "(fun fO fS n -> if n=0 then fO () else fS (n-1))".
-Extraction "/Users/npiccolotto/Projects/prayerslayer/calc/coq/dist/math" div add mult sub.
+Extraction "/Users/npiccolotto/Projects/prayerslayer/calc/coq/dist/math" div mod add mult sub.
