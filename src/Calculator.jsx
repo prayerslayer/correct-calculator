@@ -122,7 +122,7 @@ export default class Calculator extends React.Component {
 
   updateValue = val =>
     this.setState(state => ({
-      value: this.hasPendingOperation(state) ? val : state.value * 10 + val
+      value: state.value * 10 + val
     }));
 
   prepareOperation = op =>
@@ -133,11 +133,12 @@ export default class Calculator extends React.Component {
           ? state.pendingOperation(state.value)
           : state.value
       ),
+      value: 0
     }));
 
   calculate = () =>
     this.setState(state => ({
-      value: this.state.pendingOperation(state.value),
+      value: state.pendingOperation(state.value),
       pendingOperation: null
     }));
 
