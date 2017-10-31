@@ -27,14 +27,14 @@ module.exports = {
   ],
 
   output: {
-    path: path.resolve(__dirname, './dist/'),
+    path: path.resolve(__dirname, './docs/'),
     filename: '[name]-[hash].js'
   },
 
   plugins: [...defaultPlugins, ...prodPlugins],
 
   devServer: {
-    contentBase: path.resolve(__dirname, './dist/'),
+    contentBase: path.resolve(__dirname, './docs/'),
     hot: true
   },
 
