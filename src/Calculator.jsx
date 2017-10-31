@@ -146,7 +146,7 @@ export default class Calculator extends React.Component {
       <CalculatorGrid>
         <Display>{formatNumber(this.state.value)}</Display>
         <SpecialGrid>
-          <Button onClick={this.clear}>AC</Button>
+          <Button onClick={this.clear}>C</Button>
         </SpecialGrid>
         <NumpadGrid>
           <Numpad onClick={this.updateValue} />
