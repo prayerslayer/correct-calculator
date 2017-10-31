@@ -1,0 +1,6 @@
+coq/dist
+*.vo
+*.glob
+*.aux
+node_modules
+.vscode

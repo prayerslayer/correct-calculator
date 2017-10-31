@@ -1,0 +1,18 @@
+{
+  "name": "calc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile-coq": "coqtop -compile coq/src/math.v && rm coq/dist/math.mli",
+    "compile-ocaml": "bsc -c coq/dist/math.ml",
+    "copy-compiled-module": "cp coq/dist/*.js lib",
+    "compile": "npm run compile-coq && npm run compile-ocaml && npm run copy-compiled-module",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "bs-platform": "^2.0.0"
+  }
+}
