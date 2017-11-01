@@ -14,7 +14,7 @@ const Danger = Paragraph.extend`
   color: white;
 `;
 
-const Spacer = styled.div`margin-bottom: 100px;`;
+const Spacer = styled.div`margin-bottom: 70px;`;
 
 const Headline = styled.h1`
   text-align: center;
