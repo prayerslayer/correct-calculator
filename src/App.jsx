@@ -2,11 +2,30 @@ import React from 'react';
 import Calculator from './Calculator';
 import styled from 'styled-components';
 
+const Link = styled.a`
+  background: orange;
+  color: white;
+  padding: 2px 5px;
+
+  &:visited {
+    background: #aaa;
+  }
+
+  &:hover, &:active, &:focus {
+    background: darkorange;
+    color: white;
+  }
+`;
+
 const Paragraph = styled.p`
-  max-width: 600px;
-  margin: 0 auto;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  max-width: 600px;
+  margin: 0 auto;
+
+  & + p {
+    margin-top: 25px;
+  }
 `;
 
 const Danger = Paragraph.extend`
@@ -34,7 +53,7 @@ export default class App extends React.Component {
   }
   render() {
     if (this.state.error !== null) {
-      return <Danger>Error: {this.state.error.message}</Danger>
+      return <Danger>Error: {this.state.error.message}</Danger>;
     }
     return (
       <main>
@@ -42,9 +61,12 @@ export default class App extends React.Component {
         <Paragraph>
           Works on natural numbers. Correctness of functions verified by Coq,
           transpiled to Javascript via OCaml (Bucklescript).{' '}
-          <a href="https://github.com/prayerslayer/correct-calculator">
+          <Link href="https://github.com/prayerslayer/correct-calculator">
             Github
-          </a>
+          </Link>
+        </Paragraph>
+        <Paragraph>
+          (Tip: Stick to small-ish numbers for now, maybe less than 100.)
         </Paragraph>
         <Spacer />
         <Calculator />
