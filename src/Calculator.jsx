@@ -97,7 +97,7 @@ function Numpad({ children, onClick = noop }) {
   ));
 }
 
-const ops = [['\u00f7', div], ['\u00d7', mult], ['-', sub], ['+', add]];
+const ops = [['\u00f7', div], ['\u00d7', mult], ['\u2212', sub], ['\u002B', add]];
 function Operators({ onClick = noop }) {
   return ops.map(([label, op]) => (
     <OperatorButton onClick={() => onClick(op)} key={label}>
