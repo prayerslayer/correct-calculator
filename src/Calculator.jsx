@@ -121,9 +121,11 @@ const CalculatorGrid = styled.div`
 `;
 
 function noop() {}
+const nf = Intl.NumberFormat();
+
 
 function formatNumber(nr) {
-  return Intl.NumberFormat().format(nr);
+  return nf.format(nr);
 }
 
 const nums = [seven, eight, nine, four, five, six, one, two, three, zero];
