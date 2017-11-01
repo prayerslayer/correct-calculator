@@ -198,16 +198,16 @@ Fixpoint div_remainder (a b i j: nat) : (prod nat nat) :=
 Definition div (a b : nat) :=
   match b with
   | O => O
-  | (S n) => fst (div_remainder a n 0 n)
+  | (S n) => fst (div_remainder a n O n)
   end.
 
 Definition mod (a b : nat) :=
   match b with
   | O => O
-  | (S n) => (sub n (snd (div_remainder a n 0 n)))
+  | (S n) => (sub n (snd (div_remainder a n O n)))
   end.
 
-Lemma div_of_inverse_element: forall (x : nat), (div x 0) = 0.
+Lemma div_of_inverse_element: forall (x : nat), (div x O) = O.
 Proof.
 intros.
 simpl.
@@ -217,8 +217,20 @@ Qed.
 (* TODO division by neutral element 1 *)
 End Division.
 
+Section Digits.
+Definition zero := O.
+Definition one := S(zero).
+Definition two := S(one).
+Definition three := S(two).
+Definition four := S(three).
+Definition five := S(four).
+Definition six := S(five).
+Definition seven := S(six).
+Definition eight := S(seven).
+Definition nine := S(eight).
+End Digits.
 
 Extraction Language Ocaml.
 Extract Inductive nat => int [ "0" "Pervasives.succ" ]
  "(fun fO fS n -> if n=0 then fO () else fS (n-1))".
-Extraction "/Users/npiccolotto/Projects/prayerslayer/calc/coq/dist/math" div mod add mult sub.
+Extraction "/Users/npiccolotto/Projects/prayerslayer/calc/coq/dist/math" div mod add mult sub nine.

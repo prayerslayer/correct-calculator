@@ -1,5 +1,20 @@
 import React from 'react';
-import { add, sub, mult, div } from '../lib/math';
+import {
+  add,
+  sub,
+  mult,
+  div,
+  zero,
+  one,
+  two,
+  three,
+  four,
+  five,
+  six,
+  seven,
+  eight,
+  nine
+} from '../lib/math';
 import styled from 'styled-components';
 
 const fontFamily =
@@ -89,8 +104,9 @@ function formatNumber(nr) {
   return Intl.NumberFormat().format(nr);
 }
 
+const nums = [seven, eight, nine, four, five, six, one, two, three, zero];
 function Numpad({ children, onClick = noop }) {
-  return [7, 8, 9, 4, 5, 6, 1, 2, 3, 0].map(i => (
+  return nums.map(i => (
     <Button onClick={() => onClick(i)} key={i}>
       {i}
     </Button>
