@@ -14,8 +14,9 @@ No.
 
 * Coq -> OCaml -> JS, every transpiler would need to be provably correct, which I doubt they are.
 * There might be errors in the logic I wrote, even though it's consistent
+* Code that powers the calculator UI is not covered by Coq, or even tested :upside_down_face:
 * Some Lemmas I know to be true, but couldn't yet convince Coq (like `∀ x : nat, x > 0 -> x / x = 1`). So yeah, that happens too.
-* Every number has a unary representation (ie. 2 = `S(S(0))`), because I extracted Coq's inductive `nat` to OCaml's `0` and `Pervasives.succ`. Right now the biggest number I can enter in Chrome is 15549, with 15550 I get a stack overflow :upside_down_face:
+* Every number has a unary representation (ie. 2 = `S(S(0))`), because I extracted Coq's inductive `nat` to OCaml's `0` and [`Pervasives.succ`](https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html#VALsucc). Right now the biggest number I can enter in Chrome is 15549, with 15550 I get a stack overflow :upside_down_face:
 
 ## Todo, possibly, if ever
 
