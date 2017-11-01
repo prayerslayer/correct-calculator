@@ -3,16 +3,18 @@ import Calculator from './Calculator';
 import styled from 'styled-components';
 
 const Link = styled.a`
-  background: orange;
+  background: #333;
   color: white;
   padding: 2px 5px;
 
   &:visited {
-    background: #aaa;
+    background: #666;
   }
 
-  &:hover, &:active, &:focus {
-    background: darkorange;
+  &:hover,
+  &:active,
+  &:focus {
+    background: #999;
     color: white;
   }
 `;
@@ -57,13 +59,16 @@ export default class App extends React.Component {
     }
     return (
       <main>
-        <Headline>Correct Calculator</Headline>
+        <Headline>
+          Correct Calculator <small>
+            <Link href="https://github.com/prayerslayer/correct-calculator">
+              Github
+            </Link>
+          </small>
+        </Headline>
         <Paragraph>
-          Works on natural numbers. Correctness of functions verified by Coq,
+          Works on natural numbers. Correctness of functions verified with Coq,
           transpiled to Javascript via OCaml (Bucklescript).{' '}
-          <Link href="https://github.com/prayerslayer/correct-calculator">
-            Github
-          </Link>
         </Paragraph>
         <Paragraph>
           (Tip: Stick to small-ish numbers for now, maybe less than 100.)
