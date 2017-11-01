@@ -16,7 +16,7 @@ import {
   nine,
   ten
 } from '../lib/math';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const fontFamily =
   '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
@@ -47,20 +47,41 @@ const OperatorButton = Button.extend`
   font-size: 30px;
 `;
 
-const Display = styled.div`
+const evalAnim = keyframes`
+from {
+  opacity: 0;
+}
+
+to {
+  opacity: 1;
+}
+`;
+
+const DisplayNumber = styled.div`
   font-family: ${fontFamily};
   font-weight: 300;
-  text-align: right;
-  background: #aaa;
   color: white;
-  padding: 5px 18px;
   font-size: 60px;
-  grid-area: display;
 
   &::selection {
     background: #aaa;
     color: white;
   }
+`;
+
+const AnimatedDisplayNumber = DisplayNumber.extend`
+  animation-name: ${evalAnim};
+  animation-duration: 0.2s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+`;
+
+const Display = styled.div`
+  text-align: right;
+  background: #aaa;
+  padding: 5px 18px;
+  grid-area: display;
 `;
 
 const SpecialGrid = styled.div`
@@ -174,9 +195,14 @@ export default class Calculator extends React.Component {
     );
 
   render() {
+    const NumberComp = this.state.evaled
+      ? AnimatedDisplayNumber
+      : DisplayNumber;
     return (
       <CalculatorGrid>
-        <Display>{formatNumber(this.state.value)}</Display>
+        <Display>
+          <NumberComp>{formatNumber(this.state.value)}</NumberComp>
+        </Display>
         <SpecialGrid>
           <Button onClick={this.clear}>C</Button>
         </SpecialGrid>
