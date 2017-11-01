@@ -13,7 +13,8 @@ import {
   six,
   seven,
   eight,
-  nine
+  nine,
+  ten
 } from '../lib/math';
 import styled from 'styled-components';
 
@@ -129,7 +130,8 @@ function Operators({ onClick = noop }) {
 
 const INITIAL_STATE = {
   pendingOperation: null,
-  value: 0
+  value: zero,
+  evaled: false
 };
 export default class Calculator extends React.Component {
   constructor(p) {
@@ -143,27 +145,30 @@ export default class Calculator extends React.Component {
 
   updateValue = val =>
     this.setState(state => ({
-      value: add(mult(state.value, 10), val)
+      value: add(mult(state.value, ten), val),
+      evaled: false
     }));
 
   prepareOperation = op =>
     this.setState(state => ({
+      evaled: false,
       pendingOperation: op.bind(
         null,
         this.hasPendingOperation(state)
           ? state.pendingOperation(state.value)
           : state.value
       ),
-      value: 0
+      value: zero
     }));
 
-  calculate = () =>
+  evaluate = () =>
     this.setState(
       state =>
         this.hasPendingOperation(state)
           ? {
               value: state.pendingOperation(state.value),
-              pendingOperation: null
+              pendingOperation: null,
+              evaled: true
             }
           : state
     );
@@ -180,7 +185,7 @@ export default class Calculator extends React.Component {
         </NumpadGrid>
         <OperatorGrid>
           <Operators onClick={this.prepareOperation} />
-          <OperatorButton onClick={this.calculate}>=</OperatorButton>
+          <OperatorButton onClick={this.evaluate}>=</OperatorButton>
         </OperatorGrid>
       </CalculatorGrid>
     );

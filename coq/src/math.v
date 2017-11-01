@@ -228,9 +228,10 @@ Definition six := S(five).
 Definition seven := S(six).
 Definition eight := S(seven).
 Definition nine := S(eight).
+Definition ten := S(nine).
 End Digits.
 
 Extraction Language Ocaml.
 Extract Inductive nat => int [ "0" "Pervasives.succ" ]
  "(fun fO fS n -> if n=0 then fO () else fS (n-1))".
-Extraction "/Users/npiccolotto/Projects/prayerslayer/calc/coq/dist/math" div mod add mult sub nine.
+Extraction "/Users/npiccolotto/Projects/prayerslayer/calc/coq/dist/math" div mod add mult sub ten.
